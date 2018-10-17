@@ -16,6 +16,7 @@ use App\Entities\Product;
 
 Route::get('/add', function () {
     $product = Product::first();
+    // dd(class_implements($product));
     
     $cart = new Cart();
     $cart->put($product);
@@ -23,5 +24,10 @@ Route::get('/add', function () {
 
 Route::get('/list', function () {
     $cart = new Cart();
-    return $cart->list();
+    // dd($cart->list());
+    return dd($cart->list());
+});
+
+Route::get('/flush', function () {
+    Session::flush('shopping_cart_items');
 });

@@ -1,9 +1,10 @@
 <?php
 namespace DeltaProc\ShoppingCart;
 
+use Illuminate\Contracts\Support\Arrayable;
 use DeltaProc\ShoppingCart\Contracts\Purchasable;
 
-class LineItem
+class LineItem implements Arrayable
 {
     private $product;
     private $amount;
@@ -21,12 +22,12 @@ class LineItem
 
     public function increment($by = 1)
     {
-        $this->updateAmount($this->amount + $by);
+        $this->setAmount($this->amount + $by);
     }
 
     public function decrement($by = 1)
     {
-        $this->updateAmount($this->amount - $by);
+        $this->setAmount($this->amount - $by);
     }
 
     public function getProduct() : Purchasable
@@ -37,5 +38,18 @@ class LineItem
     public function getAmount() : Integer
     {
         return $this->amount;
+    }
+
+    /**
+     * Get the instance as an array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'amount' => $this->amount,
+            'product' => $this->product
+        ];
     }
 }

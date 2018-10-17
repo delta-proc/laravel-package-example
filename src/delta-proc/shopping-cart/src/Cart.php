@@ -3,6 +3,8 @@
 namespace DeltaProc\ShoppingCart;
 
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Collection;
+use DeltaProc\ShoppingCart\Contracts\Purchasable;
 
 class Cart
 {
@@ -34,7 +36,7 @@ class Cart
         if ($this->has($identifier)) {
             $this->increment($identifier);
         } else {
-            $this->items[] = new LineItem($product, 1);
+            $this->items[$identifier] = new LineItem($product, 1);
         }
         $this->persist();
     }
@@ -46,17 +48,17 @@ class Cart
 
     public function increment($identifier)
     {
-        $items[$identifier]->increment();
+        $this->items[$identifier]->increment();
     }
 
     public function decrement($identifier)
     {
-        $items[$identifier]->increment();
+        $this->items[$identifier]->decrement();
     }
 
     public function list() : array
     {
-        return $this->items;
+        return Collection::make($this->items)->toArray();
     }
 
     private function persist()
