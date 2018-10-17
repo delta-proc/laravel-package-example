@@ -10,9 +10,9 @@ class Product extends Model implements Purchasable
     /**
      * Get the product display title
      *
-     * @return String
+     * @return string
      */
-    public function getLineTitle() : String
+    public function getLineTitle() : string
     {
         return $this->name;
     }
@@ -20,9 +20,9 @@ class Product extends Model implements Purchasable
     /**
      * Get the product display description
      *
-     * @return String
+     * @return string
      */
-    public function getLineDescription() : String
+    public function getLineDescription() : string
     {
         return $this->description;
     }
@@ -31,20 +31,20 @@ class Product extends Model implements Purchasable
      * Get the unique identifier for the product
      *
      *
-     * @return String
+     * @return string
      */
-    public function getLineIdentifier() : String
+    public function getLineIdentifier() : string
     {
-        return (String) $this->id;
+        return (string) $this->id;
     }
 
     /**
      * Get the price for this item
      *
-     * @return Integer
+     * @return int
      */
-    public function getLinePrice() : Integer
+    public function getLinePrice() : int
     {
-        $this->price;
+        return int_val($this->price);
     }
 }

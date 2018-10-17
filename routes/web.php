@@ -1,5 +1,8 @@
 <?php
 
+use DeltaProc\ShoppingCart\Cart;
+use App\Entities\Product;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +14,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/add', function () {
+    $product = Product::first();
+    
+    $cart = new Cart();
+    $cart->put($product);
+});
+
+Route::get('/list', function () {
+    $cart = new Cart();
+    return $cart->list();
 });

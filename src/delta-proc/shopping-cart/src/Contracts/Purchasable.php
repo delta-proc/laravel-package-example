@@ -7,29 +7,29 @@ interface Purchasable
     /**
      * Get the product display title
      *
-     * @return String
+     * @return string
      */
-    public function getLineTitle() : String;
+    public function getLineTitle() : string;
 
     /**
      * Get the product display description
      *
-     * @return String
+     * @return string
      */
-    public function getLineDescription() : String;
+    public function getLineDescription() : string;
 
     /**
      * Get the unique identifier for the product
      *
      *
-     * @return String
+     * @return string
      */
-    public function getLineIdentifier() : String;
+    public function getLineIdentifier() : string;
 
     /**
      * Get the price for this item
      *
-     * @return Integer
+     * @return int
      */
-    public function getLinePrice() : Integer;
+    public function getLinePrice() : int;
 }
