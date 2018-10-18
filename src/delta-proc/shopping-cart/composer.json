@@ -13,5 +13,12 @@
         "psr-4": {
             "DeltaProc\\ShoppingCart\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DeltaProc\\ShoppingCart\\ServiceProvider"
+            ]
+        }
     }
 }

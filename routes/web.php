@@ -14,16 +14,14 @@ use App\Entities\Product;
 |
 */
 
-Route::get('/add', function () {
+Route::get('/add', function (Cart $cart) {
     $product = Product::first();
     // dd(class_implements($product));
     
-    $cart = new Cart();
     $cart->put($product);
 });
 
-Route::get('/list', function () {
-    $cart = new Cart();
+Route::get('/list', function (Cart $cart) {
     // dd($cart->list());
     return dd($cart->list());
 });
