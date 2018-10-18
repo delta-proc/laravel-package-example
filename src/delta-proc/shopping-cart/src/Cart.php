@@ -2,12 +2,12 @@
 
 namespace DeltaProc\ShoppingCart;
 
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Collection;
 use DeltaProc\ShoppingCart\Contracts\Purchasable;
 
 class Cart
 {
+    private $driver;
+
     /**
      * All items in the shopping cart
      *
@@ -15,11 +15,9 @@ class Cart
      */
     private $items = [];
 
-    public function __construct()
+    public function __construct(DriverInterface $driver)
     {
-        if (Session::has('shopping_cart_items')) {
-            $this->items = Session::get('shopping_cart_items');
-        }
+        $this->driver = $driver;
     }
 
     /**
@@ -31,38 +29,31 @@ class Cart
      */
     public function put(Purchasable $product)
     {
-        $identifier = $product->getLineIdentifier();
-
-        if ($this->has($identifier)) {
-            $this->increment($identifier);
-        } else {
-            $this->items[$identifier] = new LineItem($product, 1);
-        }
-        $this->persist();
+        $this->driver->put($product);
     }
 
     public function has($identifier)
     {
-        return array_key_exists($identifier, $this->items);
+        $this->driver->has($identifier);
     }
 
     public function increment($identifier)
     {
-        $this->items[$identifier]->increment();
+        $this->driver->increment($identifier);
     }
 
     public function decrement($identifier)
     {
-        $this->items[$identifier]->decrement();
+        $this->driver->decrement($identifier);
     }
 
     public function list() : array
     {
-        return Collection::make($this->items)->toArray();
+        return $this->driver->list();
     }
 
-    private function persist()
+    public function persist()
     {
-        Session::put('shopping_cart_items', $this->items);
+        $this->driver->persist();
     }
 }
